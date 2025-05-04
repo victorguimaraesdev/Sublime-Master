@@ -17,7 +17,7 @@ export const MugList = [
   {
     mug: "assets/canecas/entregaeconfiaImg.png",
     title: "Entrega e Confia",
-    text: "Para quem acredita no poder do universo e da fé no caminho. A caneca com a frase 'Entrega, Confia, Aceite, Agradeça' é um lembrete diário de equilíbrio, leveza e gratidão. Com um design sereno e acabamento de alta qualidade, ela é perfeita para acompanhar momentos de reflexão, pausas conscientes e cafés que aquecem o coração. Um presente cheio de significado para quem valoriza a jornada e confia no processo.",
+    text: "Para quem acredita no poder do universo e da fé no caminho. A caneca com a frase 'Entrega, Confia, Aceite, Agradeça' é um lembrete diário de equilíbrio, leveza e gratidão.  Perfeita para acompanhar momentos de reflexão, pausas conscientes e cafés que aquecem o coração. Um presente cheio de significado para quem valoriza a jornada e confia no processo.",
   },
   {
     mug: "assets/canecas/diadamulherImg.png",

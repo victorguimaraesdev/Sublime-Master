@@ -1,4 +1,4 @@
-import { useState } from "react";
+// import { useState } from "react";
 import { SlArrowLeft, SlArrowRight } from "react-icons/sl";
 import { MugList } from "../utils/canecasList";
 import styled, { keyframes } from "styled-components";
@@ -16,28 +16,26 @@ const fadeIn = keyframes`
 
 const MugContainer = styled.div`
   width: 100%;
-  min-height: 60vh;
+  height: 360px;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 20px;
-  box-sizing: border-box;
   gap: 40px;
-  position: relative;
   flex-wrap: wrap;
+  position: relative;
+  /* border: 2px solid red; */
 
   @media (max-width: 768px) {
     flex-direction: column;
-    gap: 20px;
-    padding: 10px;
+    gap: 30px;
+    padding: 20px;
+    height: 560px;
   }
 `;
 
 const Caneca = styled.img<{ $ativado: boolean; $delay?: string }>`
-  position: absolute;
-  top: 90px;
-  left: 250px;
-  width: 100%;
+  display: ${(props) => (props.$ativado ? "flex" : "none")};
+  width: 50%;
   max-width: 600px;
   height: auto;
   opacity: ${(props) => (props.$ativado ? 1 : 0)};
@@ -46,30 +44,30 @@ const Caneca = styled.img<{ $ativado: boolean; $delay?: string }>`
   animation-fill-mode: both;
 
   @media (max-width: 768px) {
-    max-width: 90%;
-    left: 35px;
-    top: 40px;
+    width: 90%;
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto;
   }
 `;
 
-const TextContainer = styled.div`
-  display: flex;
+const TextContainer = styled.div<{ $ativado: boolean }>`
+  display: ${(props) => (props.$ativado ? "flex" : "none")};
   flex-direction: column;
-  justify-content: center;
   width: 500px;
-  min-height: 60vh;
+  height: 420px;
 
   @media (max-width: 768px) {
     width: 100%;
-    min-height: auto;
-    text-align: center;
+    height: auto;
+    align-items: center;
+    justify-content: center;
+    text-align: justify;
+    padding: 0 0px;
   }
 `;
 
 const Title = styled.h1<{ $ativado: boolean; $delay?: string }>`
-  position: absolute;
-  top: 50px;
-  left: 850px;
   font-size: 5rem;
   font-weight: bold;
   font-family: "League Gothic", sans-serif;
@@ -79,20 +77,14 @@ const Title = styled.h1<{ $ativado: boolean; $delay?: string }>`
   animation-fill-mode: both;
 
   @media (max-width: 768px) {
-    font-size: 3rem;
-    top: 500px;
+    font-size: 2.5rem;
+    margin-bottom: 10px;
     text-align: center;
-    left: 0;
-    position: static;
-    margin-bottom: 20px;
   }
 `;
 
 const Text = styled.p<{ $ativado: boolean; $delay?: string }>`
-  position: absolute;
   max-width: 460px;
-  top: 150px;
-  left: 850px;
   font-size: 1.2rem;
   font-weight: 100;
   color: var(--secondary-color);
@@ -104,19 +96,19 @@ const Text = styled.p<{ $ativado: boolean; $delay?: string }>`
 
   @media (max-width: 768px) {
     font-size: 1rem;
-    position: static;
     max-width: 100%;
     text-align: center;
     margin-bottom: 20px;
+    padding: 0 10px;
   }
 `;
 
 const BuyButton = styled.button<{ $ativado?: boolean; $delay?: string }>`
-  position: absolute;
-  top: 330px;
-  left: 850px;
+  display: ${(props) => (props.$ativado ? "flex" : "none")};
   width: 200px;
   height: 40px;
+  justify-content: center;
+  align-items: center;
   margin-top: 20px;
   font-size: 1.2rem;
   font-weight: bold;
@@ -132,15 +124,15 @@ const BuyButton = styled.button<{ $ativado?: boolean; $delay?: string }>`
 
   @media (max-width: 768px) {
     align-self: center;
-    position: static;
-    margin-top: 0;
     font-size: 1rem;
-    width: 80%;
+    width: 90%;
+    height: 45px;
+    margin-top: 10px;
   }
 `;
 
 const ArrowLeft = styled(SlArrowLeft)`
-  position: absolute;
+  position: fixed;
   left: 8rem;
   font-size: 10rem;
   color: var(--primaria);
@@ -149,13 +141,13 @@ const ArrowLeft = styled(SlArrowLeft)`
 
   @media (max-width: 768px) {
     left: 1rem;
-    top: 100px;
+    top: 160px;
     font-size: 3rem;
   }
 `;
 
 const ArrowRight = styled(SlArrowRight)`
-  position: absolute;
+  position: fixed;
   right: 5rem;
   font-size: 10rem;
   color: var(--primaria);
@@ -164,15 +156,22 @@ const ArrowRight = styled(SlArrowRight)`
 
   @media (max-width: 768px) {
     right: 1rem;
-    top: 100px;
+    top: 160px;
     font-size: 3rem;
   }
 `;
-
-export const CanecasComponents = () => {
-  const [indexNow, setIndexNow] = useState<number>(0);
-  const [ativado, setAtivado] = useState(true);
-
+interface CanecasProps {
+  indexNow: number;
+  setIndexNow: (index: number) => void;
+  ativado: boolean;
+  setAtivado: (ativado: boolean) => void;
+}
+export const CanecasComponents = ({
+  indexNow,
+  setIndexNow,
+  ativado,
+  setAtivado,
+}: CanecasProps) => {
   const trocarItem = (novoIndex: number) => {
     setAtivado(false);
     setTimeout(() => {
@@ -194,11 +193,10 @@ export const CanecasComponents = () => {
   return (
     <MugContainer>
       <ArrowLeft onClick={handlePrevious} />
-      <ArrowRight onClick={handleNext} />
 
       <Caneca src={mug.mug} $ativado={ativado} $delay="0s" />
 
-      <TextContainer>
+      <TextContainer $ativado={ativado}>
         <Title $ativado={ativado} $delay="0.2s">
           {mug.title}
         </Title>
@@ -209,6 +207,7 @@ export const CanecasComponents = () => {
           ENCOMENDE
         </BuyButton>
       </TextContainer>
+      <ArrowRight onClick={handleNext} />
     </MugContainer>
   );
 };
