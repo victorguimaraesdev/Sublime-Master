@@ -24,12 +24,15 @@ const MugContainer = styled.div`
   flex-wrap: wrap;
   position: relative;
   /* border: 2px solid red; */
+  a {
+    width: 40%;
+  }
 
   @media (max-width: 768px) {
     flex-direction: column;
     gap: 30px;
     padding: 20px;
-    height: 560px;
+    height: 580px;
   }
 `;
 
@@ -132,7 +135,7 @@ const BuyButton = styled.button<{ $ativado?: boolean; $delay?: string }>`
 `;
 
 const ArrowLeft = styled(SlArrowLeft)`
-  position: fixed;
+  position: absolute;
   left: 8rem;
   font-size: 10rem;
   color: var(--primaria);
@@ -141,13 +144,13 @@ const ArrowLeft = styled(SlArrowLeft)`
 
   @media (max-width: 768px) {
     left: 1rem;
-    top: 160px;
+    top: 100px;
     font-size: 3rem;
   }
 `;
 
 const ArrowRight = styled(SlArrowRight)`
-  position: fixed;
+  position: absolute;
   right: 5rem;
   font-size: 10rem;
   color: var(--primaria);
@@ -156,7 +159,7 @@ const ArrowRight = styled(SlArrowRight)`
 
   @media (max-width: 768px) {
     right: 1rem;
-    top: 160px;
+    top: 100px;
     font-size: 3rem;
   }
 `;
@@ -180,19 +183,23 @@ export const CanecasComponents = ({
     }, 100);
   };
 
-  const handlePrevious = () => {
-    if (indexNow > 0) trocarItem(indexNow - 1);
-  };
+  const mudarDirecao = (direcao: "Anterior" | "Próximo") => {
+    const novoIndex =
+      direcao === "Anterior"
+        ? indexNow === 0
+          ? MugList.length - 1
+          : indexNow - 1
+        : indexNow === MugList.length - 1
+        ? 0
+        : indexNow + 1;
 
-  const handleNext = () => {
-    if (indexNow < MugList.length - 1) trocarItem(indexNow + 1);
+    trocarItem(novoIndex);
   };
-
   const mug = MugList[indexNow];
 
   return (
     <MugContainer>
-      <ArrowLeft onClick={handlePrevious} />
+      <ArrowLeft onClick={() => mudarDirecao("Anterior")} />
 
       <Caneca src={mug.mug} $ativado={ativado} $delay="0s" />
 
@@ -203,11 +210,13 @@ export const CanecasComponents = ({
         <Text $ativado={ativado} $delay="0.4s">
           {mug.text}
         </Text>
-        <BuyButton $ativado={ativado} $delay="0.6s">
-          ENCOMENDE
-        </BuyButton>
+        <a href="https://wa.me/5515998522101" target="_blank">
+          <BuyButton $ativado={ativado} $delay="0.6s">
+            ENCOMENDE
+          </BuyButton>
+        </a>
       </TextContainer>
-      <ArrowRight onClick={handleNext} />
+      <ArrowRight onClick={() => mudarDirecao("Próximo")} />
     </MugContainer>
   );
 };

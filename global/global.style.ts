@@ -24,5 +24,13 @@ export const GlobalStyle = createGlobalStyle`
         cursor: pointer;
         border: none;
         background: none;
+        text-decoration: none;
+        color: inherit;
+    }
+    a {
+        text-decoration: none;
+        color: inherit;
+        cursor: pointer;
+        /* width: 40%; */
     }
 `;

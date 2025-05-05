@@ -88,7 +88,9 @@ export const Header = () => {
         <Icon src="assets/iconesHeader/iconeCamiseta.png" />
         <Icon src="assets/iconesHeader/iconePresente.png" />
       </IconContainer>
-      <BuyContainer>ENCOMENDAS</BuyContainer>
+      <a href="https://wa.me/5515998522101" target="_blank">
+        <BuyContainer>ENCOMENDAS</BuyContainer>
+      </a>
     </HeaderContainer>
   );
 };
